@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
     host:'y2w3wxldca8enczv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user:'azz7jffn0urcif6x',
     password:'wpz8xszh05w0qnlj',
-    database:'3306'
+    database:'uuxwohaffbf52m9h'
 });
 console.log("Connected to database");
 var app = express();
