@@ -1,0 +1,75 @@
+------Signing up------
+User is sent the sign up page.
+He fills out the username box and AJAX request(POST) is sent to server
+Server checks to see if username is in database. 
+If it is then user cannot pick that username
+User types in password
+Retypes password
+--User not allowed to copy paste password(must type it in)
+--Checks to see if passwords match
+--If they do user continues. If they don't user must do it correctly
+Email
+--User types in his/her email
+--Simple Regular expression checks to see if email is in standard form
+--If it isn't then user must type it in correctly
+Age
+--checks to see if user types in a number between 1 and 99
+Submit
+--User account information is stored in database by a form being posted to the server
+--User is sent verification email and is only allowed to sign in if it is verified
+
+------Signing in-------
+User puts in his information
+Simple logic:
+--If user username is not in database, user id notifies
+--If user's username and password don't match, user is notified
+--If user didn't verify his/her email user id notified
+
+
+
+server language: node.js
+language to store variables(substitute for html): Jade
+
+Node.js libraries
+-express
+-JQuery
+-sendgrid
+-mySQL
+-randomstring
+-geolocation
+-
+
+
+To access database---
+
+
+open terminal tab
+type:   mysql-ctl cli               to start mySQL
+then type the following line by line:
+show databases;
+use c9;
+select * from users;
+select * from todos;
+
+To delete row in database---
+
+DELETE from users WHERE username = ''
+-----------------------------
+Todo
+When user is signed in, page is redirected to the main todo page where is todos are stored
+
+When the user types a todo and enters, the todo is saved in a separate mysql table where every single todo is stored for every single user. When a todo is made it is saved in
+the table with description and the user to which it belongs to.
+
+If a user types in a todo, AJAX request is sent to the server and is added to table
+Todo is also recorded in database
+Finally location is found using geolocation
+Sometimes, it isn't very accurate at the beginning because of many possible reasons(bad GPS, wifi, wierd phone, browser not supported)
+The app works best getting location if you are on a phone(I tested this app with an iphone)
+Initially, when logging on to the page the page already gathers the location where you are located in and checks every few seconds if you have moved.
+If you do move, then it sets the base location to the location you have moved at, so the location resets after you move.
+After moving, the app gives you an alert that states all the items in your todo list.
+
+All in all, I found this project a great user of time and it really helped me enhance my coding skills. If I were to do this project again,
+I would first draw the design first instead of just starting to code. Some tips I would give to people trying a similar project is to first
+read and take simple courses on the programming language instead of knowing little about the language and start coding.

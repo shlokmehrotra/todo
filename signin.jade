@@ -1,0 +1,29 @@
+html
+  head
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js')
+    script(type='text/javascript').
+      window.url = "/signinpage"
+      function check(){
+        var form = document.getElementById("theform");
+        form.method = "post";
+        form.action = "/home";
+        form.submit();
+      }
+  body
+    form#theform
+      h1 Sign in 
+      fieldset
+        p Username:
+        input#username(type='text', name = 'username', value = username, placeholder='Username', autocomplete = 'off')
+        p Password:
+        input#password(type='password', value = password, name = 'password', placeholder='Password', autocomplete = 'off')
+        br
+        br
+        input#submit(type='submit', name='Signin', value = "Sign in", onclick='check()')
+        br
+        br
+        br
+        br
+        br
+        a(href='signuppage') Don't have an account? Sign up
+        p Message: #{message}

@@ -1,0 +1,15 @@
+doctype html      
+html
+  head
+  script.
+    console.log(#{id})
+  body
+      p Thank you for signing up on NeverForget
+      p Here are your account details:
+      ul
+        li Username: #{username}
+        li Password: #{password}
+        li Email: #{email}, (Obviously!)
+        //May use following code in case redirection doesn't work http://loginpage-shlokmehrotra.c9users.io/verifyemail?id=#{userid}&username=#{username}
+        //a(href='http://loginpage-shlokmehrotra.c9users.io/verifyemail?id=#{userid}&username=#{username}') Verify my account
+        a(href='http://todo-shlokmehrotra.c9users.io/verifyemail?id=#{id}&username=#{username}') Verify my account

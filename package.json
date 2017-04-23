@@ -1,0 +1,19 @@
+{
+  "name": "neverforget",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "geolocation": "0.2.0",
+    "sjcl": "1.0.3",
+    "moment": "2.14.1",
+    "mysql": "2.10.2",
+    "sendgrid": "2.0.0",
+    "randomstring": "1.1.4",
+    "async": "0.2.6",
+    "jade": "1.11.0"
+  }
+}

@@ -1,0 +1,164 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title
+    meta(type='description', content='')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    style.
+      {
+      margin: 0;
+      padding: 0;
+      font-size: 15px;
+      font-family: helvetica, arial, sans-serif;
+      }
+      footer, section, header, aside, figure {
+      display: block;
+      }
+  body
+    header
+      h6 Hi #{username}
+      //input#history(type='submit', value='Todo History', onclick = 'history()')
+      h1(style='text-align:center') My to-dos
+      br
+      brbn
+      br
+    section
+      ul#todolist
+      form#aform
+        div
+          input#username(type='hidden', name='username',value="#{username}")
+          label(for='newitem') Add item: 
+          input#newitem(type='text', name='newitem', placeholder='new item')
+          input(type='submit', value='Add')
+        h6 ***You can delete items in your list by clicking on them***
+        input(type='submit', value='Todo History', onclick = 'history()')
+        //a(href = '/history', onclick = 'history()') Todo history
+        br
+        br
+        br
+        br
+        br  
+        a(href='signinpage') Sign out
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js')
+    script.
+      var alltodos = [];
+      var list = [];
+      var todo = document.querySelector( '#todolist' ),
+      form = document.querySelector( 'form' ),
+      field = document.querySelector( '#newitem' );
+      var todoitem = (!{todo});
+      console.log(todoitem);
+      function history(){
+        var form = document.getElementById("aform");
+        form.method = "post";
+        form.action = "/history";
+        form.submit();
+      }
+      for(var i = 0; i<todoitem.length; i++){
+        var thetodo =   todoitem[i].key ;
+        var theid = todoitem[i].value ;
+        todo.innerHTML += '<li id = "' + theid + '">' + thetodo + '</li>';
+        alltodos.push(thetodo);
+      }
+      //todo.innerHTML += unescape(#{todo});
+      form.addEventListener( 'submit', function( ev ) {
+        var text = field.value;
+        var check = true;
+        if ( text !== '' && check == true) {
+          var id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20);
+          var data = {};
+          data.username = '#{username}';
+          data.title = 'Newtodo';
+          data.todo = field.value;
+          data.id = id;
+          $.ajax({
+            type: 'POST',
+            data: (data),
+            url: '/newtodoitem',
+            success: function(data){
+              //success code
+            }
+          })
+          //Random string code: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+          todo.innerHTML += '<li id = "' + id + '">' + text + '</li>';
+          field.value = '';
+          field.focus();
+        }
+        check = true;
+        ev.preventDefault();
+      }, false);
+      todo.addEventListener( 'click', function( ev ) {
+        var t = ev.target;
+        if ( t.tagName === 'LI' ) {
+          var deleteditem = ($(t).html());
+          var deletedid = ($(t).attr('id'));
+          t.parentNode.removeChild( t );
+          var data = {};
+          data.id = deletedid ;
+          data.username = '#{username}' ;
+          data.dtodo = deleteditem ;
+        $.ajax({
+          type: 'POST',
+          data: (data),
+          url: '/deleteitem',
+          success: function(data){
+            //success code
+          }
+        })
+      };
+      ev.preventDefault()
+      }, false);
+      var id, options
+      var startPos = {} ;
+      var latitude = 0;
+      var longitude = 0;
+      var curPos;
+      window.onload = function(){
+        navigator.geolocation.getCurrentPosition(function(position){
+          startPos = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+          latitude = startPos.latitude;
+          longitude = startPos.longitude;
+          //console.log(latitude, longitude);
+        }, error, options)
+      }
+      function checking(){
+        console.log(curPos.latitude, latitude);
+        console.log(curPos.longitude, longitude);
+        //window.alert(Math.sqrt(Math.pow(curPos.latitude-latitude , 2)) + Math.pow(curPos.longitude-longitude , 2));
+        distance = Math.sqrt(Math.pow(curPos.latitude-latitude , 2)) + Math.pow(curPos.longitude-longitude , 2)
+        if(distance > 0 && distance < 0.5){
+          if(distance > 0.0002){
+            if(alltodos.length != 0){
+              var message = "Remember: ";
+              for(i=0; i< alltodos.length; i++){
+                message = message + ", " + alltodos[i];
+              }
+              window.alert(message);
+            }
+            latitude = curPos.latitude;
+            longitude = curPos.longitude;
+          }
+          else{
+            window.alert(distance);
+          }
+        }
+      }
+      function comparing(){
+        navigator.geolocation.getCurrentPosition(function(position){
+          curPos = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+          checking();
+        }, error, options)
+      }
+      //function success(position){
+        //nsetTimeout(comparing(),5000)
+        //console.log(latitude, latitude);
+      setInterval(comparing, 3000);
+        //console.log(initialposition());
+        //window.alert("Latitude:" + position.coords.latitude + "Longitude:" + position.coords.longitude);
+      //}
+      function error(err){
+        console.error(err);
+      }
+      options = {enableHighAccuracy : true}
+      //id = navigator.geolocation.watchPosition(success, error, options)

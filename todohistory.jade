@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+  body
+    form#historyform
+      input#username(type = "hidden", value = '#{username}', name = "username")
+      input(type = "submit", value = "Back to your todos", onclick = "todos()")
+      h1(style = "text-align:center") Your Todo History
+      table#usertable(border='1', align = "center")
+        tr
+          th Todo
+          th Time Created
+          th Time Deleted
+    script(type='text/javascript').
+      function todos(){
+          console.log('Submitting form')
+          var form = document.getElementById("historyform");
+          form.method = "POST";
+          form.action = "/todos";
+          form.submit();
+      }
+      var list = JSON.parse('!{list}');
+      //sconsole.log(list, list[0]);
+      var table = document.getElementById("usertable");
+      for(var i = 0; i<list.length;i+=3){
+        //console.log(i,list[i])
+        
+        //var todo = list[i]
+        //var date_made = list[i+1];
+        //var date_deleted = list[i+2];
+        
+        var todo = list[list.length-i-3];
+        var date_made = new Date(String(list[list.length-i-2]));
+        date_made = date_made.toString();
+        var date_deleted = new Date(String(list[list.length-i-1]));
+        date_deleted = date_deleted.toString();
+        if(date_deleted == "Invalid Date"){
+          date_deleted = "...";
+        }
+        var row = table.insertRow(-1);
+        var ftodo = row.insertCell(0);
+        var fdate_made = row.insertCell(1);
+        var fdate_deleted = row.insertCell(2);
+        ftodo.innerHTML = (todo);
+        fdate_made.innerHTML = (date_made);
+        fdate_deleted.innerHTML = (date_deleted);
+      }

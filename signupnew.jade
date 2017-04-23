@@ -1,0 +1,222 @@
+doctype html
+html
+  head
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.0/sjcl.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js')
+    script.
+      var usernamecheck;
+      var userpassword;
+      var passwordcheck;
+      var mailcheck;
+      var agecheck;
+      function usrname(){
+        //The submit variable is important. It is originally set to true. If the user signs any of the fields incorrectly, submit is set to false.
+        //At the end, the program checks to see if submit is still true. If it is, then only will the user be directed to the signin page.
+        //If not, the user will be notified on what he didn't do correctly.
+        var arrayusername = [];
+        var lettercheck_username = document.getElementById("username").value;
+        //This part will check to make sure there are no spaces in the username through an array called arrayusername
+        for( i=0;i<lettercheck_username.length;i++){
+          if (lettercheck_username[i]==' '){
+            usernamecheck = false;
+            //If there is a space,....
+            document.getElementById("username").value = "";
+            document.getElementById("username").style.borderColor = '#ff1a1a';
+            document.getElementById("message").value = ("There should be no spaces in the username!");
+            arrayusername = [];
+            lettercheck_username = "";
+            break;
+          }
+          else{
+            //There are no spaces in the username
+            arrayusername.push(lettercheck_username[i]);
+          }
+        }
+        if (arrayusername.length <= 5){
+          //If the length of the username is less than or equal to 5 the user will be notified that if he wants to sign up, his username must be longer
+          document.getElementById("username").style.borderColor = '#ff1a1a';
+          document.getElementById("message").value =("Username is too short! It should me more than 5 characters long. Put username first before continuing");
+          document.getElementById("username").value = "";
+          usernamecheck = false;
+        }
+        else{
+          var data = {};
+          data.title = "Userinfo";
+          data.username = document.getElementById("username").value;
+          $.ajax({
+            type: 'post',
+            data: (data),
+            url: '/usernameinfo',
+            success: function(data){
+            //console.log(JSON.stringify(data))
+            }
+          }).done(function(data){
+            if(data == 'yes'){
+              document.getElementById("username").style.borderColor = "#ff1a1a" ;
+              usernamecheck = false;
+              document.getElementById("message").value =('Username is taken');
+            }
+            else{
+            }
+          })
+          usernamecheck = true;
+          //User types in password correctly
+          document.getElementById("username").style.borderColor = '#66ff66';
+        }
+      }
+      function usrpass(){
+        var password1 = document.getElementById("password").value;
+        if(password1.length <= 6){
+          userpassword = false;
+          document.getElementById("message").value =("Password must be greater than 6 characters long!")
+          document.getElementById("password").style.borderColor = '#ff1a1a' ;
+        }
+        else{
+          userpassword = true;
+          document.getElementById("password").style.borderColor = '#66ff66' ;
+        }
+      }
+      function passcheck(){
+        var password1 = document.getElementById("password").value;
+        var password2 = document.getElementById("password2").value;
+        if (password2 == password1){
+          passwordcheck = true;
+          document.getElementById("password2").style.borderColor = "#66ff66";
+        }
+        else{
+          passwordcheck = false;
+          document.getElementById("message").value =("Passwords don't match!")
+          document.getElementById("password2").style.borderColor = "#ff1a1a";
+        }
+      }
+      function mail(){
+        var arraymail = [];
+        var lettercheck_mail = document.getElementById("email").value;
+        for(var n=0;n<lettercheck_mail.length;n++){
+          //Here I am checking to make sure there are not spaces in the email
+          if(lettercheck_mail[n] == ' '){
+            mailcheck = false;
+            document.getElementById("message").value =("There should be no spaces in the email!");
+            document.getElementById("email").value = "";
+            document.getElementById("email").style.borderColor = '#ff1a1a';
+            arraymail = [];
+            lettercheck_mail = "";
+            break;
+          }
+          else{
+            //No spaces in email
+            arraymail.push(lettercheck_mail[n]);
+          }
+        }
+        //Here I am checking to make sure that the email is more than 6 characters long
+        if(arraymail.length < 6){
+          mailcheck = false;
+          document.getElementById("email").value = "";
+          document.getElementById("message").value =("Not a valid email!");
+          document.getElementById("email").style.borderColor = '#ff1a1a';
+        }
+        else{
+          //N is the length of the string in the email
+          //Regular Expressions
+          var strmail = lettercheck_mail;
+          //My regular expression for checking email
+          var p = strmail.search(/\w.+[@]\w+.com|.edu|.org|.net|.gov|.me$/);
+          //If regular expression is not matched than p = -1
+          if(p==-1){
+            mailcheck = false;
+            //If p=-1, then notify the user that the email is not valid
+            document.getElementById("email").value = "";
+            document.getElementById("message").value =("Not a valid email!");
+            document.getElementById("email").style.borderColor = '#ff1a1a';
+          }
+          else{
+            mailcheck = true;
+            //Email is valid
+            document.getElementById("email").style.borderColor = '#66ff66'
+          }
+        }
+      }
+      function usrage(){
+        //collecting value of age string and putting it in variable urage
+        var urage = document.getElementById("age").value;
+        //Defining array to push characters in age string
+        var agearray = [];
+        //Pushing characters in the age string inside an array named agearray
+        for(var j=0;j<urage.length;j++){
+          //Making  sure there are no letters in the age string. If there are then I am alerting No letters allowed
+          if(urage[j]=='e'){
+            agecheck = false ;
+            document.getElementById("age").value = "";
+            agearray = [];
+            document.getElementById("message").value =("No letters allowed in your age!");
+            document.getElementById("age").style.borderColor = '#ff1a1a';
+            break;
+          }
+          else{
+            //If there are no letters in substring then push value in array
+            agearray.push(urage[j]);
+          }
+        }
+        //I am making sure that the length of the age string is either 1 or two.
+        //If not, there age is not probable. In other words the user could be between 1 and 99 years old
+        if(urage.length == 1||urage.length==2){
+          agecheck = true ;
+          document.getElementById("age").style.borderColor = "#66ff66";
+        }
+        else if(urage.length == 0){
+          //If user types nothing then alert tells user to do so.-
+          agecheck = false ;
+          document.getElementById("message").value =("Make sure to type in your age");
+          document.getElementById("age").value = "";
+          document.getElementById("age").style.borderColor = '#ff1a1a';
+          //tells user to type in age
+        }
+        else{
+          agecheck = false ;
+          //Their age is over 99 which is not likely or it is a negative number so we send an alert that the age that they entered 
+          document.getElementById("message").value =("I don't think that you're "+ urage + " years old!");
+          document.getElementById("age").value = "";
+          document.getElementById("age").style.borderColor = '#ff1a1a';
+        }
+      }
+      function usrfinish(){
+        if(usernamecheck == true && userpassword == true && passwordcheck == true && mailcheck == true && agecheck == true){
+          document.getElementById("password").value = sjcl.encrypt("password123", document.getElementById("password").value);
+          document.getElementById("password2").value = sjcl.encrypt("password123", document.getElementById("password2").value);
+          document.getElementById("message").value =("Thank you for signing up. Please verify your account via email!");
+          var form = document.getElementById("myform");
+         form.method = "post";
+          form.action = "/signin";
+          form.submit();
+        }
+        else{
+          document.getElementById("message").value =("Fix the fields that you didn't fill in and/or outlined in red!");
+          window.event.preventDefault();
+        }
+      }
+  body
+    form#myform
+      fieldset
+        h1(style='text-align:center') Sign up
+        p Username:
+        input#username(style='border-color:default', type='text', name='username', maxlength='20', value='', placeholder='Username', onblur='usrname()')
+        p Password:
+        input#password(style='border-color:default', type='password', name='pass1', maxlength='25', value='', placeholder='Password', onblur='usrpass()')
+        p Repeat Password:
+        input#password2(style='border-color:default', type='password', name='pass2', maxlength='25', value='', placeholder='Repeat your password', onblur = 'passcheck()')
+        p Email:
+        input#email(style='border-color:default', type='text', name='email', maxlength='40', value='', placeholder='example@email.com', onblur='mail()')
+        p Age:
+        input#age(style='border-color:default', type='number', name='age', value='', placeholder='Your age', onblur='usrage()')
+        br
+        br
+        input#finish(type='submit', name='finish', onclick='usrfinish()')
+        br
+        br
+        p Message:
+        input#message(style="border: 0px solid #000000;",type='text',name='textbox', readonly = 'readonly', size = '100')
+        br
+        br
+        br
+        br
+        a(href='/signinpage') Already have an account? Sign in
