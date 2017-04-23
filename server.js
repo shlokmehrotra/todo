@@ -6,10 +6,10 @@ var express = require('express');
 var mysql = require('mysql');
 var port = process.env.PORT;
 var connection = mysql.createConnection({
-    host:'localhost',
-    user:'shlokmehrotra',
-    password:'',
-    database:'c9'
+    host:'y2w3wxldca8enczv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user:'azz7jffn0urcif6x',
+    password:'wpz8xszh05w0qnlj',
+    database:'3306'
 });
 console.log("Connected to database");
 var app = express();
