@@ -56,7 +56,7 @@ app.post('/signin', function(req, res){
     //var template = fs.readFileSync('./emailsent.jade', 'utf-8');
     //var compiledTemplate = jade.compile(template);
     //The api key: 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
-    var sendgrid = require("sendgrid")("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");
+    var sendgrid = require("sendgrid")("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");
     sendgrid.send({
         to: req.body.email,
         from: "shlokhacks@gmail.com",
