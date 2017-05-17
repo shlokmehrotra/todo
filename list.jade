@@ -128,7 +128,7 @@ html(lang='en')
         //window.alert(Math.sqrt(Math.pow(curPos.latitude-latitude , 2)) + Math.pow(curPos.longitude-longitude , 2));
         distance = Math.sqrt(Math.pow(curPos.latitude-latitude , 2)) + Math.pow(curPos.longitude-longitude , 2)
         if(distance > 0 && distance < 0.5){
-          if(distance > 0.0002){
+          if(distance > 0.00005){
             if(alltodos.length != 0){
               var message = "Remember: ";
               for(i=0; i< alltodos.length; i++){
@@ -140,7 +140,7 @@ html(lang='en')
             longitude = curPos.longitude;
           }
           else{
-            window.alert(distance);
+            //window.alert(distance);
           }
         }
       }
