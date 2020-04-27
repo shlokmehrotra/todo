@@ -9,7 +9,7 @@
     "express": "3.2.6",
     "geolocation": "0.2.0",
     "sjcl": "1.0.3",
-    "moment": "2.14.1",
+    "moment": "2.24.0",
     "mysql": "2.10.2",
     "sendgrid": "2.0.0",
     "randomstring": "1.1.4",
