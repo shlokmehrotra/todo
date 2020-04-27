@@ -1,23 +1,14 @@
-
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--' / |  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`------' `------'
-    ----------------------------------------------------------------- 
+__TODO__:
+Enables different uesrs to add items that they need to keep track of during their day
+Notifies them when they leave from place to place helping them remember to bring all their belongings from place to place.
 
 
-Welcome to your Node.js project on Cloud9 IDE!
+My First Full Stack Web Dev Project.
+Details:
+Node.js/HTML/CSS with Jade for variable rendering 
+MySQL Database for new users and todos and fully functioning Login system
+Geolocation api enabled for alerting users when they leave their particular location.
+During registration AJAX requests for each each input field that notifies if a particular username is taken and/or if their email is valid. 
+Furtheremore, Email Validation enabled via Sendgrid API.
 
-This chat example showcases how to use `socket.io` with a static `express` server.
-
-## Running the server
-
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
-
-2) Alternatively you can launch the app from the Terminal:
-
-    $ node server.js
-
-Once the server is running, open the project in the shape of 'https://projectname-username.c9.io/'. As you enter your name, watch the Users list (on the left) update. Once you press Enter or Send, the message is shared with all connected clients.
-# nvrforget
+Built on Cloud9 IDE.
