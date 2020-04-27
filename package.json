@@ -6,7 +6,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "3.2.6",
+    "express": "4.17.1",
     "geolocation": "0.2.0",
     "sjcl": "1.0.3",
     "moment": "2.14.1",
